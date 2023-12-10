@@ -27,7 +27,7 @@ def my_spider():
     td_elements = selectors.css('tr > td')
 
     list_data = []
-    print('doing')
+    # print('doing')
     for index, td in enumerate(td_elements):
         data = td.css('::text').get()
         list_data.append(data)

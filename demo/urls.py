@@ -22,4 +22,5 @@ urlpatterns = [
     # path("admin/", admin.site.urls),
     path('',views.index),
     path('run_spider/', views.run_spider, name='run_spider'),
+    path('run_stock/', views.run_stock, name='run_stock'),
 ]
