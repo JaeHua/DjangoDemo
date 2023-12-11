@@ -2,6 +2,8 @@ import requests
 import csv
 import pandas as pd
 import os
+
+from django.http import HttpResponse
 from pyecharts.globals import ThemeType
 from pyecharts import options as opts
 from pyecharts.charts import Bar
@@ -74,11 +76,88 @@ def visualize_category(data_category):
     bar.render(save_pa)  # 将图表保存为HTML文件，也可以使用render_notebook在Jupyter中显示
     return 'sth_distribution_chart.html'
 
-def visualize_stock_data(stock_name):
-    def render_html_file(stock_name):
-        df = pd.read_csv('股票行情.csv', encoding='ANSI')
-        data = df[df['name'] == stock_name].iloc[:, 2:].squeeze()
 
+def visualize_stock_data(stock_name):
+    save_path = os.path.join(current_directory, 'data_csv', '股票行情.csv')
+    df = pd.read_csv(save_path, encoding='ANSI')
+    data = df[df['name'] == stock_name].iloc[:, 2:].squeeze()
+    save_pat = os.path.join(current_directory, 'templates', '404.html')
+
+    if data.empty:
+        error_message = f"Stock '{stock_name}' not found."
+        error_html = f'''
+            <html>
+            <head>
+                <title>Error</title>
+                <style>
+                    body {{
+                        font-family: Arial, sans-serif;
+                        background-color: #f5f5f5;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        height: 100vh;
+                    }}
+                    .error-container {{
+                        text-align: center;
+                        padding: 40px;
+                        background-color: #ffffff;
+                        border-radius: 5px;
+                        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+                    }}
+                    h1 {{
+                        font-size: 24px;
+                        margin-bottom: 20px;
+                        text-transform: uppercase;
+                        color: #333333;
+                        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+                    }}
+                    p {{
+                        font-size: 18px;
+                        color: #666666;
+                    }}
+                    .error-image {{
+                        margin-top: 40px;
+                    }}
+                    .error-image img {{
+                        max-width: 300px;
+                    }}
+                  .error-link {{
+    margin-top: 20px;
+    border: 1px solid #333333;
+    display: inline-block;
+    padding: 10px 20px;
+    border-radius: 5px;
+}}
+
+.error-link a {{
+    color: #333333;
+    text-decoration: none;
+    font-weight: bold;
+}}
+                </style>
+            </head>
+            <body>
+                <div class="error-container">
+                    <h1>{error_message}</h1>
+                    <p>Please check the stock name and try again.</p>
+                    <div class="error-image">
+                        <img src="https://cdn.pixabay.com/photo/2017/02/12/21/29/false-2061131_1280.png" alt="Error Image">
+                    </div>
+                    <div class="error-link">
+                        <a href="/">Go back to homepage</a>
+                    </div>
+                </div>
+            </body>
+            </html>
+        '''
+
+        save_path = os.path.join(current_directory, 'templates', '404.html')
+        with open(save_path, 'w', encoding='utf-8') as file:
+            file.write(error_html)
+
+        return '404.html'
+    else:
         # 美化数据
         beautified_data = data.apply(lambda x: f'{x:,.2f}')  # 将数据格式化为带千位分隔符和两位小数的字符串
 
@@ -86,7 +165,9 @@ def visualize_stock_data(stock_name):
         html_list = []
         for index, value in beautified_data.items():
             html_list.append(f'<li style="padding: 20px; background-color: #f2f2f2; border: 1px solid #ccc; border-radius: 5px; font-family: Arial; font-size: 16px; color: #333333; box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);"><b><span style="font-weight: bold; color: #000000;">{index}:</span></b> <span style="font-style: italic; color: #ff0000; text-decoration: underline;">{value}</span></li>')
+
         save_pa = os.path.join(current_directory, 'templates', 'data.html')
+
         # 将html_list渲染为HTML文件
         with open(save_pa, 'w', encoding='utf-8') as file:
             file.write('<html>\n')
@@ -121,17 +202,13 @@ def visualize_stock_data(stock_name):
             file.write('</style>\n')
             file.write('</head>\n')
             file.write('<body>\n')
-            file.write(
-                f'<h1><span style="font-family: Arial; font-size: 30px; color: black;">{stock_name}</span></h1>\n')
+            file.write(f'<h1><span style="font-family: Arial; font-size: 30px; color: black;">{stock_name}</span></h1>\n')
             file.write('<ul>\n')
             file.write('\n'.join(html_list))
-            file.write('\n</ul>\n')
-            file.write('</body>\n')
+            file.write('\n</ul</body>\n')
             file.write('</html>')
 
-
-    render_html_file('data.html')
-    return
+        return 'data.html'
 
 #
 # # 示例使用

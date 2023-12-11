@@ -33,12 +33,11 @@
         <a class="dropdown-item" href="/run_stock/?data_category=market_capital" target="_blank">Market Capital</a>
     </div>
 </div>
-    <div>
-     <form action="/visualize_stock_data" method="POST">
-        <label for="stockName">股票名称:</label>
-        <input type="text" id="stockName" name="stockName">
-        <input type="submit" value="提交">
-    </form>
-    </div>
+<form action="/visualize_stock_data/" method="POST" target="_blank">
+    {% csrf_token %}
+    <label for="stockName">股票名称:</label>
+    <input type="text" id="stockName" name="stockName">
+    <input type="submit" value="提交">
+</form>
 
 {% endblock %}

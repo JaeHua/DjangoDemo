@@ -17,8 +17,8 @@ def run_stock(requset):
 
     return render(requset,spider_gupiao.visualize_category(data_category))
 
-# def visualize_stock_data(request):
-#     if request.method == 'POST':
-#         stock_name = request.POST.get('stockName')
-#         spider_gupiao.visualize_stock_data(stock_name)
-#         return render(request, 'stock_visualization.html')
+def visualize_stock_data(request):
+    if request.method == 'POST':
+        stock_name = request.POST.get('stockName')
+        print(stock_name)
+        return render(request,spider_gupiao.visualize_stock_data(stock_name) )

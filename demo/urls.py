@@ -23,4 +23,5 @@ urlpatterns = [
     path('',views.index),
     path('run_spider/', views.run_spider, name='run_spider'),
     path('run_stock/', views.run_stock, name='run_stock'),
+    path('visualize_stock_data/', views.visualize_stock_data, name='visualize_stock_data'),
 ]
