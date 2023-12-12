@@ -1,19 +1,22 @@
 {% extends 'layout.html' %}
 
 {% block content %}
+<div style="display: flex; justify-content: space-between;">
+    <a href="{% url 'update_spider' %}" class="btn btn-primary" target="_blank" style="font-family: Arial, sans-serif; font-size: 12px; color: #FFFFFF; background-color: #007BFF; padding: 10px 20px; text-decoration: none; border-radius: 4px;">更新经济数据</a>
+
 <div class="dropdown">
         <button class="btn btn-success dropdown-toggle custom-btn" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Global Economy
         </button>
         <div class="dropdown-menu custom-dropdown" aria-labelledby="dropdownMenuButton">
-            <a class="dropdown-item" href="/run_spider/?data_option=GDP" target="_blank">GDP</a>
-            <a class="dropdown-item" href="/run_spider/?data_option=GDP%20Growth" target="_blank">GDP Growth</a>
-            <a class="dropdown-item" href="/run_spider/?data_option=Interest%20Rate" target="_blank">Interest Rate</a>
-            <a class="dropdown-item" href="/run_spider/?data_option=Jobless%20Rate" target="_blank">Jobless Rate</a>
-            <a class="dropdown-item" href="/run_spider/?data_option=GovBudget" target="_blank">Gov Budget</a>
-            <a class="dropdown-item" href="/run_spider/?data_option=Current%20Account" target="_blank">Current Account</a>
-            <a class="dropdown-item" href="/run_spider/?data_option=Debt%2FGDP" target="_blank">Debt/GDP</a>
-            <a class="dropdown-item" href="/run_spider/?data_option=Population" target="_blank">Population</a>
+            <a class="dropdown-item" href="/run_spider/?data_option=gdp" target="_blank">GDP</a>
+            <a class="dropdown-item" href="/run_spider/?data_option=gdp_growth" target="_blank">GDP Growth</a>
+            <a class="dropdown-item" href="/run_spider/?data_option=interest_rate" target="_blank">Interest Rate</a>
+            <a class="dropdown-item" href="/run_spider/?data_option=jobless_rate" target="_blank">Jobless Rate</a>
+            <a class="dropdown-item" href="/run_spider/?data_option=gov_budget" target="_blank">Gov Budget</a>
+            <a class="dropdown-item" href="/run_spider/?data_option=current_account" target="_blank">Current Account</a>
+            <a class="dropdown-item" href="/run_spider/?data_option=debt_gdp" target="_blank">Debt/GDP</a>
+            <a class="dropdown-item" href="/run_spider/?data_option=population" target="_blank">Population</a>
         </div>
     </div>
  <div class="dropdown">
@@ -39,5 +42,5 @@
     <input type="text" id="stockName" name="stockName">
     <input type="submit" value="提交">
 </form>
-
+</div>
 {% endblock %}

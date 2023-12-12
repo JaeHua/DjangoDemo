@@ -21,6 +21,7 @@ from app01 import views
 urlpatterns = [
     # path("admin/", admin.site.urls),
     path('',views.index),
+    path('update_spider/', views.update_spider, name='update_spider'),
     path('run_spider/', views.run_spider, name='run_spider'),
     path('run_stock/', views.run_stock, name='run_stock'),
     path('visualize_stock_data/', views.visualize_stock_data, name='visualize_stock_data'),
