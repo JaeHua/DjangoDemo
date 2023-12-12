@@ -145,9 +145,26 @@ def visualize_stock_data(stock_name):
                         <img src="https://cdn.pixabay.com/photo/2017/02/12/21/29/false-2061131_1280.png" alt="Error Image">
                     </div>
                     <div class="error-link">
-                        <a href="/">Go back to homepage</a>
+                         <p>will return homepage in <span id="countdown">3</span> seconds。</p>
                     </div>
                 </div>
+                <script>
+    var count = 3;
+    var countdownElement = document.getElementById('countdown');
+
+    function countdown() {{
+        countdownElement.textContent = count;
+        count--;
+
+        if (count < 0) {{
+            window.location.href = '/';
+        }} else {{
+            setTimeout(countdown, 1000);
+      }}
+    }}
+
+    setTimeout(countdown, 1000);
+</script>
             </body>
             </html>
         '''
