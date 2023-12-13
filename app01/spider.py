@@ -3,6 +3,7 @@ import parsel
 import csv
 import  os
 import pandas as pd
+from django.db import connection
 from pyecharts.globals import ThemeType
 from pyecharts import options as opts
 from pyecharts.charts import Bar
@@ -37,8 +38,16 @@ save_path = os.path.join(current_directory, 'data_csv', '全球经济状况.csv'
 #                 writer = csv.writer(f)
 #                 writer.writerow(list_data)
 #             list_data = []
+#主键置1
+def reset_auto_increment(model):
+    model.objects.all().delete()
+
+    table_name = model._meta.db_table
+    cursor = connection.cursor()
+    cursor.execute(f"ALTER TABLE {table_name} AUTO_INCREMENT = 1")
+    cursor.close()
 def my_spider():
-    Country.objects.all().delete()
+    reset_auto_increment(Country)
     selectors = parsel.Selector(resp.text)
     td_elements = selectors.css('tr > td')
 

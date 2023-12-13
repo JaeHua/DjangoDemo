@@ -25,6 +25,9 @@ def run_spider(request):
     # return render(request, spider.show_csv())
     return render(request,spider.show_csv(data_option))
 
+def list_spider(request):
+    queryset = Country.objects.all()
+    return render(request,'country_list.html',{'queryset':queryset })
 def run_stock(requset):
     spider_gupiao.spider_gupiao()
     data_category = requset.GET.get('data_category')

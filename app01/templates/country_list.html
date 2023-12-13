@@ -1,0 +1,44 @@
+{% extends 'layout.html' %}
+{% block content %}
+
+<div class="table-container">
+  <div class="bs-example" data-example-id="contextual-table">
+    <table class="table">
+      <thead>
+          <tr>
+              <th>#</th>
+              <th>ID</th>
+              <th>Name</th>
+              <th>GDP</th>
+              <th>GDP Growth</th>
+              <th>Interest Rate</th>
+              <th>Inflation Rate</th>
+              <th>Jobless Rate</th>
+              <th>Government Budget</th>
+              <th>Debt-to-GDP Ratio</th>
+              <th>Current Account</th>
+              <th>Population</th>
+          </tr>
+      </thead>
+      <tbody>
+        {% for obj in queryset %}
+          <tr class="{% cycle 'active' 'success' 'info' 'warning' 'danger' %}">
+            <th>{{ forloop.counter }}</th>
+            <td>{{ obj.id }}</td>
+            <td>{{ obj.name }}</td>
+            <td>{{ obj.gdp }}</td>
+            <td>{{ obj.gdp_growth }}</td>
+            <td>{{ obj.interest_rate }}</td>
+            <td>{{ obj.inflation_rate }}</td>
+            <td>{{ obj.jobless_rate }}</td>
+            <td>{{ obj.gov_budget }}</td>
+            <td>{{ obj.debt_gdp }}</td>
+            <td>{{ obj.current_account }}</td>
+            <td>{{ obj.population }}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}
