@@ -5,7 +5,8 @@ from datetime import datetime
 # Create your views here.
 def index(request):
     return render(request, 'index.html')
-
+def homepage(requests):
+    return render(requests,'homepage.html')
 def update_spider(request):
     spider.my_spider()
     # 查询数据库获取更新的数据条数
