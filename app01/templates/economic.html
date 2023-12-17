@@ -1,0 +1,19 @@
+{% extends 'layout.html' %}
+{% load static %}
+{% block content %}
+<div class="dropdown">
+  <button style="background:green;" class="btn  dropdown-toggle custom-btn" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    Global Economy
+  </button>
+  <div class="dropdown-menu custom-dropdown" aria-labelledby="dropdownMenuButton">
+    <a class="dropdown-item" href="/run_spider/?data_option=gdp" target="_blank">GDP</a>
+    <a class="dropdown-item" href="/run_spider/?data_option=gdp_growth" target="_blank">GDP Growth</a>
+    <a class="dropdown-item" href="/run_spider/?data_option=interest_rate" target="_blank">Interest Rate</a>
+    <a class="dropdown-item" href="/run_spider/?data_option=jobless_rate" target="_blank">Jobless Rate</a>
+    <a class="dropdown-item" href="/run_spider/?data_option=gov_budget" target="_blank">Gov Budget</a>
+    <a class="dropdown-item" href="/run_spider/?data_option=current_account" target="_blank">Current Account</a>
+    <a class="dropdown-item" href="/run_spider/?data_option=debt_gdp" target="_blank">Debt/GDP</a>
+    <a class="dropdown-item" href="/run_spider/?data_option=population" target="_blank">Population</a>
+  </div>
+</div>
+{% endblock %}
