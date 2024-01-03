@@ -29,7 +29,24 @@ def run_spider(request):
 def list_spider(request):
     queryset = Country.objects.all()
     return render(request,'country_list.html',{'queryset':queryset })
-
+def search_country(request):
+    if request.method == 'POST':
+        country_option = request.POST.get('country_name')
+        print(country_option)
+        # name字段后面自动加上了空格！！！
+        # data = Country.objects.filter(name__contains='China')
+        # da = []
+        # for d in data:
+        #     print(type(d.name))
+        #     temp=d.name
+        #     if temp.strip() == "China":
+        #         print(d.name)
+        #         print(1111)
+        #         da.append(d)
+        #     else:
+        #         print(d.name)
+        # print(d)
+        return render(request,spider.show_country_data(country_option))
 def economic_view(request):
     return render(request, 'economic.html')
 def run_stock(requset):
@@ -42,4 +59,4 @@ def visualize_stock_data(request):
     if request.method == 'POST':
         stock_name = request.POST.get('stockName')
         print(stock_name)
-        return render(request,spider_gupiao.visualize_stock_data(stock_name) )
+        return render(request,spider_gupiao.visualize_stock_data(stock_name))

@@ -27,4 +27,6 @@ urlpatterns = [
     path('list_spider/', views.list_spider, name='list_spider'),
     path('run_stock/', views.run_stock, name='run_stock'),
     path('visualize_stock_data/', views.visualize_stock_data, name='visualize_stock_data'),
+    path('search_country/', views.search_country, name='search_country'),
+
 ]

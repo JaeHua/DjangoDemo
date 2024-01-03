@@ -173,3 +173,153 @@ def show_csv(data_option):
     bar.render(save_path)
     return 'gdp_bar_chart.html'
 
+def show_country_data(name_):
+    data = Country.objects.filter(name__contains=name_)
+
+    if not data.exists():
+        error_message = f"Country '{name_}' not found."
+        error_html = f'''
+                <html>
+                <head>
+                    <title>Error</title>
+                    <style>
+                        body {{
+                            font-family: Arial, sans-serif;
+                            background-color: #f5f5f5;
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                            height: 100vh;
+                        }}
+                        .error-container {{
+                            text-align: center;
+                            padding: 40px;
+                            background-color: #ffffff;
+                            border-radius: 5px;
+                            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+                        }}
+                        h1 {{
+                            font-size: 24px;
+                            margin-bottom: 20px;
+                            text-transform: uppercase;
+                            color: #333333;
+                            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+                        }}
+                        p {{
+                            font-size: 18px;
+                            color: #666666;
+                        }}
+                        .error-image {{
+                            margin-top: 40px;
+                        }}
+                        .error-image img {{
+                            max-width: 300px;
+                        }}
+                      .error-link {{
+        margin-top: 20px;
+        border: 1px solid #333333;
+        display: inline-block;
+        padding: 10px 20px;
+        border-radius: 5px;
+    }}
+
+    .error-link a {{
+        color: #333333;
+        text-decoration: none;
+        font-weight: bold;
+    }}
+                    </style>
+                </head>
+                <body>
+                    <div class="error-container">
+                        <h1>{error_message}</h1>
+                        <p>Please check the stock name and try again.</p>
+                        <div class="error-image">
+                            <img src="https://cdn.pixabay.com/photo/2017/02/12/21/29/false-2061131_1280.png" alt="Error Image">
+                        </div>
+                        <div class="error-link">
+                             <p>will return homepage in <span id="countdown">3</span> seconds。</p>
+                        </div>
+                    </div>
+                    <script>
+        var count = 3;
+        var countdownElement = document.getElementById('countdown');
+
+        function countdown() {{
+            countdownElement.textContent = count;
+            count--;
+
+            if (count < 0) {{
+                window.location.href = '/';
+            }} else {{
+                setTimeout(countdown, 1000);
+          }}
+        }}
+
+        setTimeout(countdown, 1000);
+    </script>
+                </body>
+                </html>
+            '''
+
+        save_path = os.path.join(current_directory, 'templates', '404.html')
+        with open(save_path, 'w', encoding='utf-8') as file:
+            file.write(error_html)
+
+        return '404.html'
+    else:
+        html_content = "<html><head>"
+        html_content += "<style>"
+        html_content += "body {"
+        html_content += "    display: flex;"
+        html_content += "    justify-content: center;"
+        html_content += "    align-items: center;"
+        html_content += "    height: 100vh;"
+        html_content += "}"
+        html_content += "table {"
+        html_content += "    border-collapse: collapse;"
+        html_content += "    width: 70%;"
+        html_content += "}"
+        html_content += "th, td {"
+        html_content += "    padding: 8px;"
+        html_content += "    text-align: left;"
+        html_content += "    border-bottom: 1px solid #ddd;"
+        html_content += "    border-right: 1px solid #ddd;"
+        html_content += "}"
+        html_content += "th {"
+        html_content += "    background-color: #f2f2f2;"
+        html_content += "}"
+        html_content += "tr:last-child td {"
+        html_content += "    border-bottom: none;"
+        html_content += "}"
+        html_content += "td:last-child {"
+        html_content += "    border-right: none;"
+        html_content += "}"
+        html_content += ".search-result {"
+        html_content += "    background-color: #ffffcc;"
+        html_content += "}"
+        html_content += "</style>"
+        html_content += "</head><body>"
+        html_content += "<table>"
+        html_content += "<tr><th>Country</th><th>GDP</th><th>GDP Growth</th><th>Interest Rate</th><th>Inflation Rate</th><th>Jobless Rate</th><th>Government Budget</th><th>Debt to GDP</th><th>Current Account</th><th>Population</th></tr>"
+
+        for da in data:
+            html_content += "<tr class='search-result'>"
+            html_content += "<td>{}</td>".format(da.name)
+            html_content += "<td>{}</td>".format(da.gdp)
+            html_content += "<td>{}</td>".format(da.gdp_growth)
+            html_content += "<td>{}</td>".format(da.interest_rate)
+            html_content += "<td>{}</td>".format(da.inflation_rate)
+            html_content += "<td>{}</td>".format(da.jobless_rate)
+            html_content += "<td>{}</td>".format(da.gov_budget)
+            html_content += "<td>{}</td>".format(da.debt_gdp)
+            html_content += "<td>{}</td>".format(da.current_account)
+            html_content += "<td>{}</td>".format(da.population)
+            html_content += "</tr>"
+
+        html_content += "</table>"
+        html_content += "</body></html>"
+        save_pa = os.path.join(current_directory, 'templates', 'special_country_data.html')
+        with open(save_pa, 'w') as file:
+            file.write(html_content)
+        return 'special_country_data.html'
